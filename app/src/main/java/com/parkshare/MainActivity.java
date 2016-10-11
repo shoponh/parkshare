@@ -12,9 +12,6 @@ import android.view.ViewConfiguration;
 import java.lang.reflect.Field;
 
 public class MainActivity extends AppCompatActivity {
-
-    //Just a test...
-    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
