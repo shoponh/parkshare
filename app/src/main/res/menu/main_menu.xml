@@ -1,0 +1,23 @@
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+     xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+    android:id="@+id/user_profile"
+    android:title="User Profile"
+    app:showAsAction="never"/>
+
+    <item
+    android:id="@+id/paypal_info"
+    app:showAsAction="never"
+    android:title="Paypal Info"/>
+
+    <item
+        android:id="@+id/transaction_history"
+        app:showAsAction="never"
+        android:title="Transaction History"/>
+    <item
+        android:id="@+id/rent_paking_space"
+        app:showAsAction="never"
+        android:title="Rent Parking Space"/>
+
+</menu>
