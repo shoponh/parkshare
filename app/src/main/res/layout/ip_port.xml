@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dip" >
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dip"
+            android:text="@string/title_activity_ipport"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/ip_port_label" />
+        <!-- Name TextField -->
+
+        <EditText
+            android:id="@+id/ip_port"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" android:hint="Enter IP:Port"/>
+
+        <TextView
+            android:id="@+id/ipport_error"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dip"
+            android:textColor="#e30000"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btnSetIpPort"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dip"
+            android:background="#ff6347"
+            android:onClick="setIpPort"
+            android:text="Set Ip-Port"
+            android:textColor="#fff" />
+
+
+    </LinearLayout>
+</ScrollView>
