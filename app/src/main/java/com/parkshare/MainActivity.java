@@ -1,6 +1,5 @@
 package com.parkshare;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -69,16 +68,11 @@ public class MainActivity extends AppCompatActivity {
     private static final String PREF_NAME = "name";
     SharedPreferences mSharedPreferences;
     private static final String QUERY_URL = "http://openlibrary.org/search.json?q=";
-    //ProgressDialog mDialog;
-    //final ArrayList<ItemInfo> itemInfoList = new ArrayList<ItemInfo>();
 
     protected LocationManager locationManager;
     protected LocationListener locationListener;
     protected Context context;
     Location lastKnownLocation;
-
-    ProgressDialog prgDialog;
-    TextView errorMsg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,18 +83,6 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setIcon(R.drawable.ic_directions_car_white_24dp);
 
         displayWelcome();
-
-        /*
-        ActionBar actionBar = getActionBar();
-        actionBar.setLogo(R.drawable.ic_directions_car_white_24dp);
-        actionBar.setDisplayUseLogoEnabled(true);
-        actionBar.setDisplayShowHomeEnabled(true);
-
-        String strAddress = "1 newman street, east brunswick, nj 08816";
-        Address location = getLatiLong(strAddress);
-        */
-        prgDialog = new ProgressDialog(this);
-        errorMsg = (TextView)findViewById(R.id.login_error);
 
         Address location = new Address(Locale.US);
         listItems(this);
@@ -254,8 +236,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
-
-        return true;
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.user_profile:
+                //displayUserProfile()
+                Toast.makeText(getApplicationContext(), "User Profile", Toast.LENGTH_LONG).show();
+                return true;
+            case R.id.paypal_info:
+                Toast.makeText(getApplicationContext(), "Paypal Info", Toast.LENGTH_LONG).show();
+                return true;
+            case R.id.transaction_history:
+                Toast.makeText(getApplicationContext(), "Transaction History", Toast.LENGTH_LONG).show();
+                return true;
+            case R.id.rent_paking_space:
+                Toast.makeText(getApplicationContext(), "Rent Paking Space", Toast.LENGTH_LONG).show();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     //Hack to show three dots
