@@ -13,4 +13,6 @@
     <string name="ip_port_label">IP and PORT</string>
     <string name="ipPort">IP PORT</string>
     <string name="title_activity_welcome">Welcome</string>
+    <string name="profile_title">Profile</string>
+
 </resources>

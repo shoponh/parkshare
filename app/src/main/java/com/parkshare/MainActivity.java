@@ -3,6 +3,7 @@ package com.parkshare;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Address;
@@ -241,6 +242,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.user_profile:
                 //displayUserProfile()
                 Toast.makeText(getApplicationContext(), "User Profile", Toast.LENGTH_LONG).show();
+                navigatetoRegisterActivity();
                 return true;
             case R.id.paypal_info:
                 Toast.makeText(getApplicationContext(), "Paypal Info", Toast.LENGTH_LONG).show();
@@ -290,5 +292,11 @@ public class MainActivity extends AppCompatActivity {
         mDialog.setMessage("Loading...");
         mDialog.setCancelable(false);
         mDialog.show();
+    }
+
+    public void navigatetoRegisterActivity(){
+        Intent loginIntent = new Intent(getApplicationContext(),ProfileActivity.class);
+        loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(loginIntent);
     }
 }
