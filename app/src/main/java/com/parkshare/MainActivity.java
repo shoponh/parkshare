@@ -5,19 +5,13 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.location.Address;
-import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.net.Uri;
-import android.os.Build;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.ShareActionProvider;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -44,13 +38,11 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 
 import com.parkshare.dao.MyResponseObj;
 import com.parkshare.constant.Constant;
 import com.parkshare.pojo.ItemInfo;
-import com.parkshare.pojo.ResultObject;
 
 
 //public class MainActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener, LocationListener {
@@ -196,8 +188,11 @@ public class MainActivity extends AppCompatActivity {
                                 public void onItemClick(AdapterView<?> parent, View view,
                                                         int position, long id) {
                                     // TODO Auto-generated method stub
-                                    String Slecteditem = itemname[+position];
-                                    Toast.makeText(getApplicationContext(), Slecteditem, Toast.LENGTH_SHORT).show();
+                                    String slecteditem = itemname[+position];
+                                    Toast.makeText(getApplicationContext(), slecteditem, Toast.LENGTH_SHORT).show();
+
+                                    detailActivity(slecteditem);
+
                                 }
                             });
                         }
@@ -242,7 +237,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.user_profile:
                 //displayUserProfile()
                 Toast.makeText(getApplicationContext(), "User Profile", Toast.LENGTH_LONG).show();
-                navigatetoRegisterActivity();
+                profileActivity();
                 return true;
             case R.id.paypal_info:
                 Toast.makeText(getApplicationContext(), "Paypal Info", Toast.LENGTH_LONG).show();
@@ -298,5 +293,18 @@ public class MainActivity extends AppCompatActivity {
         Intent loginIntent = new Intent(getApplicationContext(),ProfileActivity.class);
         loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(loginIntent);
+    }
+
+    public void profileActivity(){
+        Intent loginIntent = new Intent(getApplicationContext(),ProfileActivity.class);
+        loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(loginIntent);
+    }
+
+    public void detailActivity(String slecteditem){
+        Intent detailIntent = new Intent(getApplicationContext(),ItemDetailActivity.class);
+        detailIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        detailIntent.putExtra("item_name", slecteditem);
+        startActivity(detailIntent);
     }
 }

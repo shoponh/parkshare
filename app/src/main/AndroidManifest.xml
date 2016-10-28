@@ -34,6 +34,10 @@
             android:label="HEEEELLLOOO" >
         </activity>
 
+        <activity android:name=".ItemDetailActivity"
+            android:label="Detail" >
+        </activity>
+
     </application>
 
 </manifest>

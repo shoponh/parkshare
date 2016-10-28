@@ -14,5 +14,6 @@
     <string name="ipPort">IP PORT</string>
     <string name="title_activity_welcome">Welcome</string>
     <string name="profile_title">Profile</string>
+    <string name="detail_title">Item Detail</string>
 
 </resources>
