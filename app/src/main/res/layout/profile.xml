@@ -20,13 +20,21 @@
             android:textSize="25sp"
             android:textStyle="bold"/>
 
+        <EditText
+            android:id="@+id/person_id"
+            android:layout_columnSpan="2"/>
+
+        <EditText
+            android:id="@+id/address_id"
+            android:layout_columnSpan="2"/>
+
         <TextView
             android:text="NAME: "
             android:layout_gravity="left"
             android:background="#8800FF00"
             android:textStyle="bold"/>
-        <TextView
-            android:id="@+id/profileName"
+        <EditText
+            android:id="@+id/profile_name"
             android:layout_gravity="left"/>
 
         <TextView
@@ -34,17 +42,8 @@
             android:layout_gravity="left"
             android:background="#8800FF00"
             android:textStyle="bold"/>
-        <TextView
-            android:id="@+id/userEmail"
-            android:layout_gravity="left"/>
-
-        <TextView
-            android:text="PHONE: "
-            android:layout_gravity="left"
-            android:background="#8800FF00"
-            android:textStyle="bold"/>
-        <TextView
-            android:id="@+id/userPhone"
+        <EditText
+            android:id="@+id/email"
             android:layout_gravity="left"/>
 
         <TextView
@@ -52,11 +51,99 @@
             android:layout_gravity="left"
             android:background="#8800FF00"
             android:textStyle="bold"/>
-        <TextView
-            android:id="@+id/userPassword"
+        <EditText
+            android:id="@+id/password"
             android:layout_gravity="left"/>
 
-         <Button
+        <TextView
+            android:id="@+id/address_id"
+            android:layout_columnSpan="2"
+            android:text=""
+            android:layout_gravity="center_horizontal"/>
+
+        <TextView
+            android:text="ADDRESS1: "
+            android:layout_gravity="left"
+            android:background="#8800FF00"
+            android:textStyle="bold"/>
+        <EditText
+            android:id="@+id/address1"
+            android:layout_gravity="left"/>
+
+        <TextView
+            android:text="ADDRESS2: "
+            android:layout_gravity="left"
+            android:background="#8800FF00"
+            android:textStyle="bold"/>
+        <EditText
+            android:id="@+id/address2"
+            android:layout_gravity="left"/>
+
+        <TextView
+            android:text="CITY: "
+            android:layout_gravity="left"
+            android:background="#8800FF00"
+            android:textStyle="bold"/>
+        <EditText
+            android:id="@+id/city"
+            android:layout_gravity="left"/>
+
+        <TextView
+            android:text="STATE: "
+            android:layout_gravity="left"
+            android:background="#8800FF00"
+            android:textStyle="bold"/>
+        <EditText
+            android:id="@+id/state"
+            android:layout_gravity="left"/>
+
+        <TextView
+            android:text="ZIP: "
+            android:layout_gravity="left"
+            android:background="#8800FF00"
+            android:textStyle="bold"/>
+        <EditText
+            android:id="@+id/zip"
+            android:layout_gravity="left"/>
+
+        <TextView
+            android:text="COUNTRY: "
+            android:layout_gravity="left"
+            android:background="#8800FF00"
+            android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/country"
+            android:text="USA"
+            android:layout_gravity="left"/>
+
+        <TextView
+            android:text="LATITUDE: "
+            android:layout_gravity="left"
+            android:background="#8800FF00"
+            android:textStyle="bold"/>
+        <EditText
+            android:id="@+id/latitude"
+            android:layout_gravity="left"/>
+
+        <TextView
+            android:text="LONGITUDE: "
+            android:layout_gravity="left"
+            android:background="#8800FF00"
+            android:textStyle="bold"/>
+        <EditText
+            android:id="@+id/longitude"
+            android:layout_gravity="left"/>
+
+        <TextView
+            android:text="PHONE: "
+            android:layout_gravity="left"
+            android:background="#8800FF00"
+            android:textStyle="bold"/>
+        <EditText
+            android:id="@+id/phone"
+            android:layout_gravity="left"/>
+
+          <Button
             android:id="@+id/btnUpdateProfile"
             android:text="Update Profile"
             android:onClick="updateUserProfile"
