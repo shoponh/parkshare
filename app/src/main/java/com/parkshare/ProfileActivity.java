@@ -37,19 +37,20 @@ public class ProfileActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile);
+
+
+        /*
         // Find Error Msg Text View control by ID
         errorMsg = (TextView)findViewById(R.id.register_error);
-        // Find Name Edit View control by ID
         nameET = (EditText)findViewById(R.id.registerName);
-        // Find Email Edit View control by ID
         emailET = (EditText)findViewById(R.id.registerEmail);
-        // Find Password Edit View control by ID
         pwdET = (EditText)findViewById(R.id.registerPassword);
-        // Instantiate Progress Dialog object
+        */
+
+        getUserProfile("producer@gmail.com");
+
         prgDialog = new ProgressDialog(this);
-        // Set Progress Dialog Text
         prgDialog.setMessage("Please wait...");
-        // Set Cancelable as False
         prgDialog.setCancelable(false);
     }
 
@@ -58,28 +59,12 @@ public class ProfileActivity extends Activity {
      *
      * @param view
      */
-    public void registerUser(View view){
-        // Get NAme ET control value
-        String name = nameET.getText().toString();
-        // Get Email ET control value
-        String email = emailET.getText().toString();
-        // Get Password ET control value
-        String password = pwdET.getText().toString();
-        // Instantiate Http Request Param Object
+    public void getUserProfile(String email){
         RequestParams params = new RequestParams();
         // When Name Edit View, Email Edit View and Password Edit View have values other than Null
-        if(Utility.isNotNull(name) && Utility.isNotNull(email) && Utility.isNotNull(password)){
-            userInfo.setName(name);
-
-            // When Email entered is Valid
+        if( Utility.isNotNull(email) ){
             if(Utility.validate(email)){
-                // Put Http parameter name with value of Name Edit View control
-                params.put("name", name);
-                // Put Http parameter username with value of Email Edit View control
-                params.put("username", email);
-                // Put Http parameter password with value of Password Edit View control
-                params.put("password", password);
-                // Invoke RESTful Web Service with Http parameters
+                params.put("useremail", email);
                 invokeWS(params);
             }
             // When Email is invalid
@@ -101,12 +86,15 @@ public class ProfileActivity extends Activity {
      */
     public void invokeWS(RequestParams params){
         // Show Progress Dialog
-        prgDialog.show();
+        //prgDialog = new ProgressDialog(this);
+        //prgDialog.setMessage("Please wait...");
+        //prgDialog.setCancelable(false);
+        //prgDialog.show();
+
         // Make RESTful webservice call using AsyncHttpClient object
         AsyncHttpClient client = new AsyncHttpClient();
-        //client.get("http://192.168.2.2:9999/useraccount/register/doregister",params ,new AsyncHttpResponseHandler() {
-        //client.get("http://10.0.0.4:8080/useraction/register/doregister",params ,new AsyncHttpResponseHandler() {
-        client.get("http://"+ IpPortActivity.getIpPort() +"/useraction/register/doregister",params ,new AsyncHttpResponseHandler() {
+        //client.get("http://192.168.2.2:9999/useraccount/profile/getprofile",params ,new AsyncHttpResponseHandler() {
+        client.get("http://"+ IpPortActivity.getIpPort() +"/useraction/profile/getprofile",params ,new AsyncHttpResponseHandler() {
 
                         // When the response returned by REST has Http response code '200'
             @Override

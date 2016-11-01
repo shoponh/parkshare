@@ -1,123 +1,68 @@
-<?xml version="1.0" encoding="utf-8"?><ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+    android:layout_height="fill_parent">
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="5dip" >
-
-        <!-- View Title Label -->
+    <GridLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:useDefaultMargins="true"
+        android:alignmentMode="alignBounds"
+        android:columnOrderPreserved="false"
+        android:columnCount="2"
+        >
 
         <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dip"
             android:text="@string/profile_title"
+            android:layout_columnSpan="2"
+            android:layout_gravity="center_horizontal"
             android:textSize="25sp"
-            android:textStyle="bold" />
-        <!-- Name Label -->
+            android:textStyle="bold"/>
 
         <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/name" />
-        <!-- Name TextField -->
-
-        <EditText
-            android:id="@+id/registerName"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content" android:hint="Enter your Name"/>
-
-        <!-- Email Label -->
+            android:text="NAME: "
+            android:layout_gravity="left"
+            android:background="#8800FF00"
+            android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/profileName"
+            android:layout_gravity="left"/>
 
         <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/email" />
-        <!-- Email TextField -->
-
-        <EditText
-            android:id="@+id/registerEmail"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:hint="Enter your Email ID"
-            android:inputType="textEmailAddress" />
-
-        <!-- Password Label -->
+            android:text="EMAIL: "
+            android:layout_gravity="left"
+            android:background="#8800FF00"
+            android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/userEmail"
+            android:layout_gravity="left"/>
 
         <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dip"
-            android:text="@string/pwd" />
-        <!-- Password TextField -->
-
-        <EditText
-            android:id="@+id/registerPassword"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:hint="Enter Password"
-            android:inputType="textPassword" />
-
-        <!-- Error message -->
+            android:text="PHONE: "
+            android:layout_gravity="left"
+            android:background="#8800FF00"
+            android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/userPhone"
+            android:layout_gravity="left"/>
 
         <TextView
-            android:id="@+id/register_error"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:padding="10dip"
-            android:textColor="#e30000"
-            android:textStyle="bold" />
+            android:text="PASSWORD: "
+            android:layout_gravity="left"
+            android:background="#8800FF00"
+            android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/userPassword"
+            android:layout_gravity="left"/>
 
-        <Button
-            android:id="@+id/btnRegister"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dip"
-            android:background="#ff6347"
-            android:onClick="registerUser"
-            android:text="@string/btnRegister"
-            android:textColor="#fff" />
+         <Button
+            android:id="@+id/btnUpdateProfile"
+            android:text="Update Profile"
+            android:onClick="updateUserProfile"
+            android:textStyle="bold"
+            />
 
-        <!-- Link to Login Screen -->
-
-        <Button
-            android:id="@+id/btnLinkToLoginScreen"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dip"
-            android:background="@null"
-            android:onClick="navigatetoLoginActivity"
-            android:text="Login"
-            android:textColor="#228b22"
-            android:textStyle="bold" />
-
-        <Button
-            android:id="@+id/btnLinkToIpPortScreen"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dip"
-            android:background="@null"
-            android:onClick="navigatetoIpPortActivity"
-            android:text="Set IP and Port"
-            android:textColor="#228b22"
-            android:textStyle="bold" />
-
-        <Button
-            android:id="@+id/btnLinkToShowIpPortScreen"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dip"
-            android:background="@null"
-            android:onClick="navigatetoShowIpPortActivity"
-            android:text="Show IP and Port"
-            android:textColor="#228b22"
-            android:textStyle="bold" />
-
-
-    </LinearLayout>
+    </GridLayout>
 
 </ScrollView>

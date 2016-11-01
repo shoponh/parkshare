@@ -1,118 +1,153 @@
-<?xml version="1.0" encoding="utf-8"?><ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+    android:layout_height="fill_parent">
 
-    <!--LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+    <GridLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:useDefaultMargins="true"
+        android:alignmentMode="alignBounds"
+        android:columnOrderPreserved="false"
+        android:columnCount="2"
+        >
 
-
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:text="ITEM NAME: "
-            android:layout_gravity="left"
-            android:background="#88FF0000"/>
-
-        <TextView
-            android:id="@+id/itemName"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:layout_gravity="right"
-            android:background="#8800FF00"/>
-
-
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="0dp"
-            android:layout_weight=".50"
-            android:layout_height="wrap_content"
-            android:text="ITEM NAME: "
-            android:layout_gravity="left"
-            android:background="#88FF0000"/>
-
-        <TextView
-            android:id="@+id/itemName3"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:layout_gravity="right"
-            android:background="#8800FF00"/>
-
-    </LinearLayout-->
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="10dip" >
-
-
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dip"
+         <TextView
             android:text="@string/detail_title"
+            android:layout_columnSpan="2"
+            android:layout_gravity="center_horizontal"
             android:textSize="25sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"/>
+
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:text="ITEM: "
-            android:layout_weight=".50"
             android:layout_gravity="left"
             android:background="#8800FF00"
             android:textStyle="bold"/>
         <TextView
             android:id="@+id/itemName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight=".50"
-            android:layout_gravity="right"/>
+            android:layout_gravity="left"/>
 
         <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="ITEM DESC: " />
+            android:text="ITEM DESC: "
+            android:layout_gravity="left"
+            android:background="#8800FF00"
+            android:textStyle="bold"/>
         <TextView
             android:id="@+id/itemDesc"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_gravity="left"/>
 
         <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="ITEM DISTANCE: " />
+            android:text="ITEM DISTANCE: "
+            android:layout_gravity="left"
+            android:background="#8800FF00"
+            android:textStyle="bold"/>
         <TextView
             android:id="@+id/itemDistance"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_gravity="left"/>
 
         <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="PRICE: " />
+            android:text="PRICE: "
+            android:layout_gravity="left"
+            android:background="#8800FF00"
+            android:textStyle="bold"/>
         <TextView
             android:id="@+id/itemPrice"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_gravity="left"/>
 
+        <Space
+            android:layout_row="4"
+            android:layout_column="0"
+            android:layout_columnSpan="2"
+            android:layout_gravity="fill"
+            />
+
+        <Button
+            android:id="@+id/btnCancel"
+            android:text="Cancel"
+            android:onClick="gotoListItem"
+            android:textStyle="bold"
+            />
+
+        <Button
+            android:id="@+id/btnBookItem"
+            android:text="Book Items"
+            android:onClick="bookItemActivity"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/errorMsg"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_columnSpan="2"
             android:gravity="center"
             android:padding="10dip"
             android:textColor="#e30000"
             android:textStyle="bold" />
+
+
+        <!--Button
+            android:text="Next"
+
+            android:layout_row="5"
+            android:layout_column="2"
+            /-->
+    </GridLayout>
+
+    <!--
+    <GridLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:useDefaultMargins="true"
+        android:alignmentMode="alignBounds"
+        android:columnOrderPreserved="false"
+        android:columnCount="2">
+
+
+        <TextView
+            android:text="@string/detail_title"
+            android:layout_columnSpan="2"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="10dip"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:text="ITEM: "
+            android:layout_gravity="right"
+            android:background="#8800FF00"
+            android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/itemName"
+            android:layout_gravity="left"/>
+
+        <TextView
+            android:text="ITEM DESC: "
+            android:layout_gravity="right"
+            android:background="#8800FF00"
+            android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/itemDesc"
+            android:layout_gravity="left"/>
+
+        <TextView
+            android:text="ITEM DISTANCE: "
+            android:layout_gravity="right"
+            android:background="#8800FF00"
+            android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/itemDistance"
+            android:layout_gravity="left"/>
+
+        <TextView
+            android:text="PRICE: "
+            android:layout_gravity="right"
+            android:background="#8800FF00"
+            android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/itemPrice"
+            android:layout_gravity="left"/>
 
         <Button
             android:id="@+id/btnCancel"
@@ -130,6 +165,16 @@
             android:text="Book Items"
             android:textStyle="bold" />
 
-     </LinearLayout>
+        <TextView
+            android:id="@+id/errorMsg"
+            android:columnCount="2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="10dip"
+            android:textColor="#e30000"
+            android:textStyle="bold" />
 
+    </GridLayout>
+    -->
 </ScrollView>
