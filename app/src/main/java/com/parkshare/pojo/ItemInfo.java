@@ -11,6 +11,10 @@ public class ItemInfo implements Serializable{
     private int addressId = -1;
     private String specialInstruction = "";
     private Integer image = -1;
+    private String itemType = "";
+    private float latitude = 0;
+    private float longitude = 0;
+    private double distance = 0;
 
     public void setName(String name){
         this.name = name;
@@ -46,6 +50,35 @@ public class ItemInfo implements Serializable{
     public Integer getImage(){
         return this.image;
     }
+
+    public void setItemType(String itemType){
+        this.itemType = itemType;
+    }
+    public String getItemType(){
+        return this.itemType;
+    }
+
+    public void setLatitude(float latitude){
+        this.latitude = latitude;
+    }
+    public float getLatitude(){
+        return this.latitude;
+    }
+
+    public void setLongitude(float longitude){
+        this.longitude = longitude;
+    }
+    public float getLongitude(){
+        return this.longitude;
+    }
+
+    public void setDistance(double distance){
+        this.distance = distance;
+    }
+    public double getDistance(){
+        return this.distance;
+    }
+
 
 }
 

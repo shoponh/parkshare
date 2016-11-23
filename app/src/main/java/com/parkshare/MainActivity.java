@@ -5,10 +5,13 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Build;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.ShareActionProvider;
@@ -38,15 +41,18 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 import com.parkshare.dao.MyResponseObj;
 import com.parkshare.constant.Constant;
 import com.parkshare.pojo.ItemInfo;
 
+import android.location.Geocoder;
+//import com.google.android.gms.GeoPoint;
 
 //public class MainActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener, LocationListener {
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements LocationListener{
     final ArrayList<ItemInfo> itemInfoList = new ArrayList<ItemInfo>();
     ProgressDialog mDialog;
 
@@ -78,6 +84,23 @@ public class MainActivity extends AppCompatActivity {
         displayWelcome();
 
         Address location = new Address(Locale.US);
+        lastKnownLocation = getCurrentLocation();
+
+        /*
+        try {
+            Geocoder geocoder = new Geocoder(this);
+            List<Address> addresses = geocoder.getFromLocation(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude(), 1);
+            String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
+            String city = addresses.get(0).getLocality();
+            String state = addresses.get(0).getAdminArea();
+            String country = addresses.get(0).getCountryName();
+            String postalCode = addresses.get(0).getPostalCode();
+            String knownName = addresses.get(0).getFeatureName(); // Only if available else return NULL
+        }catch(Exception e){
+            System.out.println(e.toString());
+        }
+        */
+
         listItems(this);
     }
 
@@ -156,10 +179,16 @@ public class MainActivity extends AppCompatActivity {
                                 String specInstruction = "";
                                 int itemAddressId = -1;
                                 int itemId = -1;
+                                String itemType = "";
+                                float latitude = 0;
+                                float longitude = 0;
                                 try {
                                     itemId = Integer.parseInt((String) currItem.get(Constant.ITEM_ID));
                                     itemAddressId = Integer.parseInt((String) currItem.get(Constant.ITEM_ADDRESS_ID));
                                     specInstruction = currItem.get(Constant.ITEM_SPECIAL_INSTRUNCTION) == null ? "" : (String) currItem.get(Constant.ITEM_SPECIAL_INSTRUNCTION);
+                                    itemType = (String) currItem.get(Constant.ITEM_TYPE);
+                                    latitude = Float.valueOf( (String) currItem.get(Constant.LATITUDE));
+                                    longitude = Float.valueOf( (String) currItem.get(Constant.LONGITUDE));
                                 } catch (Exception e) {
                                     System.out.println(e.getMessage());
                                 }
@@ -170,6 +199,21 @@ public class MainActivity extends AppCompatActivity {
                                 itemInfo.setAddressId(itemAddressId);
                                 itemInfo.setSpecialInstruction(specInstruction);
                                 itemInfo.setImage(imgid[itemId]);
+                                itemInfo.setItemType(itemType);
+                                itemInfo.setLatitude(latitude);
+                                itemInfo.setLongitude(longitude);
+
+                                Location locationA = new Location("point A");
+                                locationA.setLatitude(lastKnownLocation.getLatitude());
+                                locationA.setLongitude(lastKnownLocation.getLongitude());
+                                Location locationB = new Location("point B");
+                                locationB.setLatitude(latitude);
+                                locationB.setLongitude(longitude);
+                                double distance1 = locationA.distanceTo(locationB) ;
+                                double distanceInMiles = distance1 == 0 ? 0 : distance1 / 1609.344;
+
+                                double distance = Utility.getDistance(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude(), latitude, longitude);
+                                itemInfo.setDistance(distance);
 
                                 itemNames[i] = "Item-" + itemId;
                                 itemInfoList.add(itemInfo);
@@ -306,5 +350,180 @@ public class MainActivity extends AppCompatActivity {
         detailIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         detailIntent.putExtra("item_name", slecteditem);
         startActivity(detailIntent);
+    }
+
+    public float getDistance(float currLat, float currLong, float itemLatitude, float itemLongitude) {
+        float distance = 0;
+        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+        try {
+            List<Address> addresses = geocoder.getFromLocation(currLat-itemLatitude, currLong-itemLongitude, 1);
+            String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
+            String city = addresses.get(0).getLocality();
+            String state = addresses.get(0).getAdminArea();
+            String country = addresses.get(0).getCountryName();
+            String postalCode = addresses.get(0).getPostalCode();
+            String knownName = addresses.get(0).getFeatureName(); // Only if available else return NULL
+            System.out.println("=======================================================================================");
+
+        }catch (Exception e){
+            System.out.println(e.toString());
+        }
+
+
+
+        /*
+        GeoPoint p1 = null;
+        //p1 = new GeoPoint((int) (location.getLatitude() * 1E6), (int) (location.getLongitude() * 1E6));
+        p1 = new GeoPoint((int)((currLat-itemLatitude) * 1E6), (int)((currLong-itemLongitude) * 1E6));
+
+        System.out.println("=======================================================================================");
+        addresses = geocoder.getFromLocation(latitude, longitude, 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
+        String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
+        String city = addresses.get(0).getLocality();
+        String state = addresses.get(0).getAdminArea();
+        String country = addresses.get(0).getCountryName();
+        String postalCode = addresses.get(0).getPostalCode();
+        String knownName = addresses.get(0).getFeatureName(); // Only if available else return NULL
+        System.out.println("=======================================================================================");
+        */
+
+        return 1;
+    }
+
+    public Address getLatiLong(String strAddress) {
+        Address address = new Address(null);
+        Geocoder geocoder = new Geocoder(this);
+        List<Address> addresses = new ArrayList<Address>();
+        double latitude = 0.0;
+        double longitude = 0.0;
+
+        try {
+            System.out.println("=======================================================================================");
+            addresses = geocoder.getFromLocationName(strAddress, 1);
+            if (addresses==null) {
+                System.out.println("Address is null!");
+            }
+            address = addresses.get(0);
+            latitude = address.getLatitude();
+            longitude = address.getLongitude();
+            System.out.println("Latitude: "+ latitude);
+            System.out.println("Longitude: "+ longitude);
+            return address;
+        }catch(Exception e) {
+            System.out.println(e.toString());
+        }
+
+        return address;
+    }
+    public Location getCurrentLocation(){
+        Location currentLocation = null;
+
+        if ( Build.VERSION.SDK_INT >= 23 &&
+                ContextCompat.checkSelfPermission( context, android.Manifest.permission.ACCESS_FINE_LOCATION ) != PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission( context, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return  currentLocation;
+        }
+
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+
+        currentLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
+        System.out.println("=======================================================================================");
+        try {
+            Geocoder geocoder = new Geocoder(this);
+            List<Address> addresses = new ArrayList<Address>();
+            addresses = geocoder.getFromLocation(currentLocation.getLatitude(), currentLocation.getLongitude(), 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
+            String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
+            String city = addresses.get(0).getLocality();
+            String state = addresses.get(0).getAdminArea();
+            String country = addresses.get(0).getCountryName();
+            String postalCode = addresses.get(0).getPostalCode();
+            String knownName = addresses.get(0).getFeatureName(); // Only if available else return NULL
+        }catch(Exception e){
+            System.out.println(e.toString());
+        }
+        System.out.println("=======================================================================================");
+
+        return currentLocation;
+    }
+
+    /****
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client2.connect();
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "Home Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app URL is correct.
+                Uri.parse("android-app://com.example.shopon.androidrestfulwstest/http/host/path")
+        );
+        AppIndex.AppIndexApi.start(client2, viewAction);
+    }
+    ***/
+
+    /***
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "Home Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app URL is correct.
+                Uri.parse("android-app://com.example.shopon.androidrestfulwstest/http/host/path")
+        );
+        AppIndex.AppIndexApi.end(client2, viewAction);
+        client2.disconnect();
+    }
+    **/
+
+    @Override
+    public void onLocationChanged(Location location) {
+        if( locationManager == null || location == null ){
+            if ( Build.VERSION.SDK_INT >= 23 &&
+                    ContextCompat.checkSelfPermission( context, android.Manifest.permission.ACCESS_FINE_LOCATION ) != PackageManager.PERMISSION_GRANTED &&
+                    ContextCompat.checkSelfPermission( context, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            }
+
+            locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+            lastKnownLocation = getCurrentLocation();
+
+        }else{
+            //txtLat = (TextView) findViewById(R.id.textview1);
+            //txtLat.setText("Latitude:" + location.getLatitude() + ", Longitude:" + location.getLongitude());
+            System.out.println("Latitude:" + location.getLatitude() + ", Longitude:" + location.getLongitude());
+            lastKnownLocation = location;
+        }
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+        System.out.println("Latitude - disable");
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+        System.out.println("Latitude - enable");
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+        System.out.println("Latitude - status");
     }
 }

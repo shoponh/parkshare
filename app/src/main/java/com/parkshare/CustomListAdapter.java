@@ -91,11 +91,9 @@ public class CustomListAdapter extends ArrayAdapter<String> {
         if(itemInfoList.size() > position){
             currItemInfo = itemInfoList.get(position);
 
-
-
-            txtTitle.setText("ITEM-"+ currItemInfo.getId());
+            txtTitle.setText(currItemInfo.getItemType());
             imageView.setImageResource(currItemInfo.getImage());
-            extratxt.setText("Description "+itemname[position]);
+            extratxt.setText(currItemInfo.getLatitude() +" - "+ currItemInfo.getLongitude());
         }
 
         /**
